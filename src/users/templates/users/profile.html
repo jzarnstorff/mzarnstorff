@@ -1,0 +1,30 @@
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}About{% endblock head_title %}
+
+{% block content %}
+  <div class="content-section">
+    <div class="media">
+      <a href="{{ user_profile.image.url }}">
+        <img class="rounded-circle account-img" src="{{ user_profile.image.url }}"/>
+      </a>
+      <div class="media-body">
+        <h2 class="account-heading">{{ user_profile.name }}</h2>
+        {% if user.is_authenticated %}
+          <a class="btn btn-outline-primary btn-sm offset-md-11 mb-2" href="{% url 'profile-update' user_profile.id %}">Edit</a>
+        {% endif %}
+        <div class="content-section">
+          <h5 class="text-secondary">About:</h5>
+          <p>{{ user_profile.about }}</p>
+        </div>
+        <div class="content-section">
+          <p class="text-secondary">Find more of my work at:</p>
+          {% for user_url in user_urls %}
+            <a href="{{ user_url.url }}">{{ user_url.url_name }}</a><br>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
